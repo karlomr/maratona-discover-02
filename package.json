@@ -15,5 +15,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karlomr/maratona-discover-02.git"
+  },
+  "bugs": {
+    "url": "https://github.com/karlomr/maratona-discover-02/issues"
+  },
+  "homepage": "https://github.com/karlomr/maratona-discover-02#readme"
 }
