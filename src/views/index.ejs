@@ -14,14 +14,11 @@
           <h2 class="sr-only">Homepage</h2>
           <img id="logo" src="/images/logo.svg" alt="Logo" />
           <span id="notification">
-            <img src="/images/alert-octagon.svg" alt="Alerta" />
-            Você tem 2 horas livres no seu dia
+            <%= freeHours > 0 ? `Você tem ${freeHours} horas livres no seu dia` : 'Você não tem horas livres' %>
           </span>
           <a href="/profile" id="avatar-profile">
-            <p>Jakeliny <span>Ver perfil</span></p>
-            <img
-              src="https://avatars.githubusercontent.com/u/17316392?s=460&u=6912a91a70bc89745a2079fdcdad3bc3ce370f13&v=4"
-            />
+            <p> <%= profile.name %>  <span>Ver perfil</span></p>
+            <img src="<%= profile.avatar %>"/>
           </a>
         </section>
 
@@ -32,15 +29,15 @@
 
           <div class="info">
             <div class="total">
-              <strong>12</strong>
+              <strong><%= statusCount.total %></strong>
               Projetos ao total
             </div>
             <div class="in-progress">
-              <strong>7</strong>
+              <strong> <%= statusCount.progress %></strong>
               Em andamento
             </div>
             <div class="finished">
-              <strong>4</strong>
+              <strong> <%=  statusCount.done %></strong>
               Encerrados
             </div>
           </div>
@@ -77,7 +74,7 @@
               </div>
               <div class="amount column">
                 <span>Valor</span>
-                <p>R$ <%= job.budget.toFixed(2).replace('.',',') %> </p>
+                <p> <%= job.budget %> </p>
               </div>
               <div class="status badge column">
                 <%= job.status === 'done' ? 'Encerrado' : 'Em andamento' %>
