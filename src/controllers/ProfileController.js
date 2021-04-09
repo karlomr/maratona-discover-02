@@ -2,14 +2,14 @@ const Profile = require("../model/Profile");
 const NumberUtils = require("../utils/NumberUtils");
 
 module.exports = {
-  index(req, res) {
-    const profile = Profile.get()
+  async index(req, res) {
+    const profile = await Profile.get()
     const valueHour = NumberUtils.monetary(profile["value-hour"])
 
     return res.render("profile", { profile, valueHour:valueHour });
   },
 
-  update(req, res) {
+  async update(req, res) {
     //req. body to catch data
     const data = req.body;
 
@@ -25,11 +25,13 @@ module.exports = {
     //work hour to monthly
     const monthlyTotalHours = weekTotalHours * weeksPerMonth;
 
-    //What will be value of my hour?
+    //What will be the value of my hour?
     let valueHour = data["monthly-budget"] / monthlyTotalHours;
 
-    Profile.update({
-      ...Profile.get(),
+    const profile = await Profile.get()
+
+    await Profile.update({
+      ...profile,
       ...req.body,
       "value-hour": valueHour,
     });

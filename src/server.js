@@ -9,10 +9,10 @@ const path = require("path")
 //set template engine
 server.set('view engine', 'ejs')
 
-//folder view
+//directory with view folder. necessary for ejs
 server.set('views', path.join(__dirname, 'views'))
 
-//habilite static archive in foilder public
+//static archive in folder public
 server.use(express.static("public"))
 
 //use req.body only disponible if use this code

@@ -1,6 +1,9 @@
 //library to create server
 const express = require('express');
+//define routes in express
 const routes = express.Router();
+
+//controllers for model
 const ProfileController = require('./controllers/ProfileController')
 const JobController = require('./controllers/JobController')
 const DashBoardController = require('./controllers/DashBoardController')
