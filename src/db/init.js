@@ -19,7 +19,7 @@ const initDb =  {
          ,"name" NVARCHAR(50)
          ,"daily_hours" INT
          ,"total_hours" INT
-         ,"created_at" DATETIME NOT NULL DEFAULT CURRENT_DATE)`
+         ,"created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP)`
 
     
     const in_profile = `INSERT INTO "ROCKETSEAT"."PROFILE" (
