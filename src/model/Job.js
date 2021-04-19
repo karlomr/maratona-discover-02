@@ -1,10 +1,11 @@
-const Database = require('../db/config');
+const Database = require('../db/config')
+const { db, connOptions, open } = require("../db/config1")
 
 module.exports = {
   async get() {
     const db = await Database()
 
-    const jobs = await db.all(`SELECT * FROM jobs`)
+   const jobs = await db.all(`SELECT * FROM jobs`)
 
     await db.close()
 
@@ -39,7 +40,7 @@ module.exports = {
   },
 
   async create(newJob) {
-    const db = await Database()
+    //const db = await Database()
 
     await db.run(
       `INSERT INTO jobs (

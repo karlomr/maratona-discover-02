@@ -1,5 +1,5 @@
 "use strict"
-const { Database, connOptions } = require("./config")
+const { db, connOptions } = require("./config1")
 
 const initDb =  {
   init() {
@@ -59,7 +59,7 @@ const initDb =  {
             ('OneTwo Project', 3, 47)`
     }
 
-    const db = Database.createConnection()
+    //const db = Database.createConnection()
 
     db.connect(connOptions, function(err) {
       if (err) throw err

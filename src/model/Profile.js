@@ -1,12 +1,29 @@
 const Database = require('../db/config')
+const { db, connOptions, open } = require("../db/config1")
 
 module.exports = {
-    async get(){
-      const db = await Database()
-      
-      const data = await db.get(`SELECT * FROM profile`)
+    get(){
+      let data = ''   
+      db.connect(connOptions, function(err) {
+        if (err) throw err
+        const statement = db.prepare(`SELECT * FROM "ROCKETSEAT"."PROFILE" WHERE 1 =?`)  
+        data = statement.execQuery([1], function(err, rs) {
+          if (err) throw err
+          var rows = []
+          while (rs.next()) {
+            rows.push(rs.getValues())
+            console.log("Rows: ", rows)
+          }
+          statement.drop();
+          db.disconnect(function(err) {
+              if (err) {
+                  return console.error(err);
+              }   
+          });          
+        })
+      })
 
-      await db.close()
+      //await db.close()
 
       return {
         name: data.name,
@@ -16,7 +33,7 @@ module.exports = {
         "hours-per-day": data.hours_per_day,
         "vacation-per-year": data.vacation_per_year,
         "value-hour": data.value_hour
-      };
+      }
     },
 
     async update(newData){
