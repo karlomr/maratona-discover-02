@@ -40,7 +40,7 @@ const initDb =  {
       2,
       90)`
 
-    //atention not declaring id and created_at because add automatic in sql
+    //attention not declaring id and created_at because add automatic in sql
     const in_jobs = 
     {
       job1:`INSERT INTO "ROCKETSEAT"."JOBS"
@@ -49,7 +49,7 @@ const initDb =  {
               "daily_hours",
               "total_hours"    
             ) VALUES 
-            ('Pizzaria Guloso', 2, 60)`,
+            ('Pizzaria Dominos', 2, 60)`,
       job2:`INSERT INTO "ROCKETSEAT"."JOBS"
             (
               "name",
