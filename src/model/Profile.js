@@ -2,7 +2,10 @@ const Database = require("../db/config");
 const { db, connOptions } = require("../db/config1");
 
 function getData() {
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
+
+    //https://developers.sap.com/tutorials/hana-clients-node.html
+    //https://www.npmjs.com/package/@sap/hana-client
     db.connect(connOptions, function (err) {
       if (err) reject(err);
       const statement = db.prepare(
@@ -12,19 +15,19 @@ function getData() {
       statement.execQuery([1], function (err, rs) {
         if (err) reject(err);
 
+        const rows = [];
         while (rs.next()) {
-          row.push(rs.getValues());
-          console.log("Rows: ", row);
+          rows.push(rs.getValues());
         }
-        //statement.drop();
-        resolve(row);
-      });
-    });
 
-    db.disconnect(function (err) {
-      if (err) {
-        reject(err);
-      }
+        db.disconnect(function (err) {
+          if (err) {
+            reject(err);
+          }
+        });        
+        //statement.drop();
+        resolve(rows);
+      });      
     });
   });
 }
@@ -32,6 +35,7 @@ function getData() {
 module.exports = {
   async get() {
     const data = await getData();
+    console.log(data.name)
     return {
       name: data.name,
       avatar: data.avatar,
