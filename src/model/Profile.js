@@ -25,8 +25,8 @@ function getData() {
             reject(err);
           }
         });        
-        //statement.drop();
-        resolve(rows);
+        statement.drop();
+        resolve(rows[0]);
       });      
     });
   });
@@ -35,7 +35,7 @@ function getData() {
 module.exports = {
   async get() {
     const data = await getData();
-    console.log(data.name)
+
     return {
       name: data.name,
       avatar: data.avatar,
