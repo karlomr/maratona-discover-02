@@ -1,16 +1,13 @@
-const Database = require("../db/config");
 const { db, connOptions } = require("../db/config1");
 
 function getData() {
   return new Promise((resolve, reject) => {
-
     //https://developers.sap.com/tutorials/hana-clients-node.html
     //https://www.npmjs.com/package/@sap/hana-client
     db.connect(connOptions, function (err) {
       if (err) reject(err);
 
-      const statement = db.prepare(
-        `SELECT * FROM "ROCKETSEAT"."PROFILE"`);
+      const statement = db.prepare(`SELECT * FROM "ROCKETSEAT"."PROFILE"`);
 
       statement.execQuery(function (err, rs) {
         if (err) reject(err);
@@ -24,14 +21,34 @@ function getData() {
           if (err) {
             reject(err);
           }
-        });        
+        });
         statement.drop();
         resolve(rows[0]);
-      });      
+      });
     });
   });
 }
 
+function updateData() {
+  return new Promise((resolve, reject) => {
+    //https://developers.sap.com/tutorials/hana-clients-node.html
+    //https://www.npmjs.com/package/@sap/hana-client
+    db.connect(connOptions, function (err) {
+      if (err) reject(err);
+      db.exec(
+        `UPDATE "ROCKETSEAT"."PROFILE" SET
+        "monthly_budget" = 15000.00
+        FROM "ROCKETSEAT"."PROFILE"`
+      );
+
+      db.disconnect(function (err) {
+        if (err) {
+          reject(err);
+        }
+      });
+    });
+  });
+}
 
 module.exports = {
   async get() {
@@ -49,26 +66,50 @@ module.exports = {
   },
 
   update(newData) {
+    // try{
+    //   const result = await updateData();
+
+    // }catch(error){
+    //   failureCallback(error);
+    // }
+
+
     db.connect(connOptions, function (err) {
       if (err) reject(err);
       db.exec(
         `UPDATE "ROCKETSEAT"."PROFILE" SET
-        "monthly_budget" = 19000.00
+        "monthly_budget" = 10000.00
         FROM "ROCKETSEAT"."PROFILE"`
-        , function (err, result) {
-          if (err) throw err;
-          db.disconnect();}
-      )
-      //   `UPDATE "ROCKETSEAT"."PROFILE" SET
-      //    "name" = '${newData.name}' 
-      //   ,"avatar" = '${newData.avatar}'
-      //   ,"monthly_budget" = ${newData["monthly-budget"]}
-      //   ,"days_per_week" = ${newData["days-per-week"]}
-      //   ,"hours_per_day" = ${newData["hours-per-day"]}
-      //   ,"vacation_per_year" = ${newData["vacation-per-year"]}
-      //   ,"value_hour" = ${newData["value-hour"]}
-      //   FROM "ROCKETSEAT"."PROFILE"`
-      // );
+      );
+
+      db.disconnect(function (err) {
+        if (err) {
+          reject(err);
+        }
+      });
     });
+
+    // db.connect(connOptions, function (err) {
+    //   if (err) reject(err);
+    //   db.exec(
+    //     `UPDATE "ROCKETSEAT"."PROFILE" SET
+    //     "monthly_budget" = 19000.00
+    //     FROM "ROCKETSEAT"."PROFILE"`);
+    //   db.disconnect(function (err) {
+    //     if (err) {
+    //       reject(err);
+    //     }
+    //   });
+    // });
+    //   `UPDATE "ROCKETSEAT"."PROFILE" SET
+    //    "name" = '${newData.name}'
+    //   ,"avatar" = '${newData.avatar}'
+    //   ,"monthly_budget" = ${newData["monthly-budget"]}
+    //   ,"days_per_week" = ${newData["days-per-week"]}
+    //   ,"hours_per_day" = ${newData["hours-per-day"]}
+    //   ,"vacation_per_year" = ${newData["vacation-per-year"]}
+    //   ,"value_hour" = ${newData["value-hour"]}
+    //   FROM "ROCKETSEAT"."PROFILE"`
+    // );
   },
 };
