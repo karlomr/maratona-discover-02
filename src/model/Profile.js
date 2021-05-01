@@ -8,11 +8,11 @@ function getData() {
     //https://www.npmjs.com/package/@sap/hana-client
     db.connect(connOptions, function (err) {
       if (err) reject(err);
-      const statement = db.prepare(
-        `SELECT * FROM "ROCKETSEAT"."PROFILE" WHERE 1 =?`
-      );
 
-      statement.execQuery([1], function (err, rs) {
+      const statement = db.prepare(
+        `SELECT * FROM "ROCKETSEAT"."PROFILE"`);
+
+      statement.execQuery(function (err, rs) {
         if (err) reject(err);
 
         const rows = [];
@@ -32,6 +32,7 @@ function getData() {
   });
 }
 
+
 module.exports = {
   async get() {
     const data = await getData();
@@ -47,20 +48,27 @@ module.exports = {
     };
   },
 
-  async update(newData) {
-    const db = await Database();
-
-    db.run(
-      `UPDATE profile SET
-           name = "${newData.name}" 
-          ,avatar = "${newData.avatar}"
-          ,monthly_budget = ${newData["monthly-budget"]}
-          ,days_per_week = ${newData["days-per-week"]}
-          ,hours_per_day = ${newData["hours-per-day"]}
-          ,vacation_per_year = ${newData["vacation-per-year"]}
-          ,value_hour = ${newData["value-hour"]}`
-    );
-
-    await db.close();
+  update(newData) {
+    db.connect(connOptions, function (err) {
+      if (err) reject(err);
+      db.exec(
+        `UPDATE "ROCKETSEAT"."PROFILE" SET
+        "monthly_budget" = 19000.00
+        FROM "ROCKETSEAT"."PROFILE"`
+        , function (err, result) {
+          if (err) throw err;
+          db.disconnect();}
+      )
+      //   `UPDATE "ROCKETSEAT"."PROFILE" SET
+      //    "name" = '${newData.name}' 
+      //   ,"avatar" = '${newData.avatar}'
+      //   ,"monthly_budget" = ${newData["monthly-budget"]}
+      //   ,"days_per_week" = ${newData["days-per-week"]}
+      //   ,"hours_per_day" = ${newData["hours-per-day"]}
+      //   ,"vacation_per_year" = ${newData["vacation-per-year"]}
+      //   ,"value_hour" = ${newData["value-hour"]}
+      //   FROM "ROCKETSEAT"."PROFILE"`
+      // );
+    });
   },
 };
