@@ -6,97 +6,98 @@
   </head>
 
   <body id="page-profile">
-    <%- include('parts/page-header', { title: 'Adicionar novo job'}) %>
+    <%- include('parts/page-header', { title: 'Add new job'}) %>
 
     <div class="container animate-up delay-2">
       <aside class="card">
-        <img src="<%= profile.avatar %>" alt="<%= profile.name %>">
+        <img src="<%= profile.avatar %>" alt="<%= profile.name %>" />
         <h2><%=profile.name%></h2>
         <p>
-          O valor da sua hora é <br/>
-          <strong> <%= valueHour %></strong>
+          Your value hour is <br>
+          <strong> <%= valueHourBrl %></strong><br>
+          <strong> <%= valueHourUsa %></strong><br>
+          <strong> <%= valueHourEur %></strong><br>
         </p>
-        <button class="button green" form="form-profile" type="submit">Salvar dados</button>
+        <button class="button green" form="form-profile" type="submit">
+          Save data
+        </button>
       </aside>
       <main>
-
         <form id="form-profile" method="POST" action="/profile">
           <fieldset>
-            <legend>Dados do perfil</legend>
+            <legend>Profile Data</legend>
             <div class="separator light"></div>
 
             <div class="input-group">
               <div class="input-wrapper">
-                <label for="name">Nome</label>
-                <input type="text" id="name" name="name" value="<%= profile.name %>"/>
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value="<%= profile.name %>"
+                />
               </div>
 
               <div class="input-wrapper">
-                <label for="avatar">Link da foto</label>
-                <input 
-                placeholder="https://"
-                type="url" 
-                id="avatar" 
-                name="avatar" 
-                value= "<%= profile.avatar %>"/>
+                <label for="avatar">Link photo</label>
+                <input
+                  placeholder="https://"
+                  type="url"
+                  id="avatar"
+                  name="avatar"
+                  value="<%= profile.avatar %>"
+                />
               </div>
             </div>
           </fieldset>
 
           <fieldset>
-            <legend>Planejamento</legend>
-            <div class="separator light"> </div>
+            <legend>Planning</legend>
+            <div class="separator light"></div>
 
             <div class="input-group">
               <div class="input-wrapper">
-                <label for="monthly-budget">Quanto eu <br/>quero ganhar por mês?</label>
-                <input 
-                  type="amount"
-                  step="0.1" 
-                  id="monthly-budget" 
-                  name="monthly-budget" 
-                  placeholder="R$"
-                  value="<%= profile["monthly-budget"] %>"/>
+                <label for="monthly-budget">
+                  How much <br/> 
+                  do you want to receive per month ?
+                </label>
+                <input type="amount" step="0.1" id="monthly-budget"
+                name="monthly-budget" placeholder="R$" value="<%=
+                profile["monthly-budget"] %>"/>
               </div>
 
               <div class="input-wrapper">
-                <label for="hours-per-day">Quantas horas <br/>
-                  quero trabalhar por dia?</label>
-                <input 
-                  type="number"
-                  id="hours-per-day" 
-                  name="hours-per-day" 
-                  value="<%= profile["hours-per-day"] %>"/>
+                <label for="hours-per-day"
+                  >How many hours <br/>
+                  do you want to work?</label>
+                <input type="number" id="hours-per-day" name="hours-per-day"
+                value="<%= profile["hours-per-day"] %>"/>
               </div>
             </div>
 
             <div class="input-group">
               <div class="input-wrapper">
-                <label for="days-per-week">Quantos dias <br/>quero
-                  trabalhar por semana?</label>
-                <input
-                  type="number"
-                  id="days-per-week" 
-                  name="days-per-week" 
-                  value="<%= profile["days-per-week"] %>"/>
+                <label for="days-per-week">
+                  How many days of the week<br/>do you want to work?
+                </label>
+                <input type="number" id="days-per-week" name="days-per-week"
+                value="<%= profile["days-per-week"] %>"/>
               </div>
 
               <div class="input-wrapper">
-                <label for="vacation-per-year">Quantas semanas <br/>
-                  por ano você quer tirar férias?</label>
-                <input 
-                  type="number" 
-                  id="vacation-per-year" 
-                  name="vacation-per-year" 
-                  value="<%= profile["vacation-per-year"] %>"/>
+                <label for="vacation-per-year"
+                  >How many weeks a year <br />
+                   do you want to take a vacation?</label>
+                <input type="number" id="vacation-per-year"
+                name="vacation-per-year" value="<%= profile["vacation-per-year"]
+                %>"/>
               </div>
             </div>
           </fieldset>
-    
         </form>
       </main>
     </div>
     <!-- end container -->
   </body>
 </html>
- 

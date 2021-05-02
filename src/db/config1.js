@@ -8,9 +8,8 @@ const connOptions = {
     //https://blogs.sap.com/2019/02/04/secure-user-store-for-the-sap-hana-service-by-the-sap-hana-academy/
     //hdbuserstore
     serverNode: '@USER1',  
-    sslValidateCertificate: 'false',
-    // HANA Cloud Platfomr only
-    //currentSchema: 'ROCKETSEAT',
+    sslValidateCertificate: 'false',    
+    //currentSchema: 'ROCKETSEAT', // HANA Cloud Platform only
 }
 
 const db = Database.createConnection()

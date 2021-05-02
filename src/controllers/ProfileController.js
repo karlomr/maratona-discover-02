@@ -3,10 +3,19 @@ const NumberUtils = require("../utils/NumberUtils");
 
 module.exports = {
   async index(req, res) {
-    const profile = await Profile.get()
-    const valueHour = NumberUtils.monetary(profile["value-hour"])
+    const profile = await Profile.get();
+    //in features consume api with quotation
+    const valueHour = Number(profile["value-hour"]);
 
-    return res.render("profile", { profile, valueHour:valueHour });    
+    const valueCurrency = NumberUtils.valueCurrency(valueHour);
+
+    return res.render("profile", {
+      profile,
+      valueHour : valueHour,
+      valueHourBrl: valueCurrency.BRL,
+      valueHourUsa: valueCurrency.USD,
+      valueHourEur: valueCurrency.EUR,
+    });
   },
 
   async update(req, res) {
@@ -26,9 +35,9 @@ module.exports = {
     const monthlyTotalHours = weekTotalHours * weeksPerMonth;
 
     //What will be the value of my hour?
-    let valueHour = data["monthly-budget"] / monthlyTotalHours;    
-      
-    const profile = await Profile.get()
+    let valueHour = data["monthly-budget"] / monthlyTotalHours;
+
+    const profile = await Profile.get();
 
     await Profile.update({
       ...profile,

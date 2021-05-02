@@ -30,6 +30,33 @@ function getData() {
   });
 }
 
+function updateData(newData) {
+  return new Promise((resolve,reject) => {
+    db.connect(connOptions, function (err) {
+      if (err) reject(err);
+
+      db.exec(
+        `UPDATE "ROCKETSEAT"."PROFILE" SET
+        "name" = '${newData.name}'
+       ,"avatar" = '${newData.avatar}'
+       ,"monthly_budget" = ${newData["monthly-budget"]}
+       ,"days_per_week" = ${newData["days-per-week"]}
+       ,"hours_per_day" = ${newData["hours-per-day"]}
+       ,"vacation_per_year" = ${newData["vacation-per-year"]}
+       ,"value_hour" = ${newData["value-hour"]}
+       FROM "ROCKETSEAT"."PROFILE"`,
+        function (err,result) {          
+          if (err) reject(err);;
+          resolve(result);
+          db.disconnect();
+        }
+      );
+    });
+  });
+}
+
+
+
 module.exports = {
   async get() {
     const data = await getData();
@@ -46,29 +73,6 @@ module.exports = {
   },
 
   async update(newData) {
-    () => {
-      return Promise.resolve((reject) => {
-        db.connect(connOptions, function (err) {
-          if (err) reject(err);
-
-          db.exec(
-            `UPDATE "ROCKETSEAT"."PROFILE" SET
-            "name" = '${newData.name}'
-           ,"avatar" = '${newData.avatar}'
-           ,"monthly_budget" = ${newData["monthly-budget"]}
-           ,"days_per_week" = ${newData["days-per-week"]}
-           ,"hours_per_day" = ${newData["hours-per-day"]}
-           ,"vacation_per_year" = ${newData["vacation-per-year"]}
-           ,"value_hour" = ${newData["value-hour"]}
-           FROM "ROCKETSEAT"."PROFILE"`,
-            function (err) {
-              if (err) throw err;
-              db.disconnect();
-            }
-          );
-        });
-      });
-    };
-    //await updateData(newData);
+    const update =  await updateData(newData);
   },
 };

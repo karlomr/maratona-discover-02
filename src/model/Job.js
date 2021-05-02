@@ -40,7 +40,6 @@ module.exports = {
   },
 
   async create(newJob) {
-    //const db = await Database()
 
     await db.run(
       `INSERT INTO jobs (
