@@ -6,7 +6,7 @@ module.exports = {
     const profile = await Profile.get()
     const valueHour = NumberUtils.monetary(profile["value-hour"])
 
-    return res.render("profile", { profile, valueHour:valueHour });
+    return res.render("profile", { profile, valueHour:valueHour });    
   },
 
   async update(req, res) {
@@ -26,14 +26,14 @@ module.exports = {
     const monthlyTotalHours = weekTotalHours * weeksPerMonth;
 
     //What will be the value of my hour?
-    let valueHour = data["monthly-budget"] / monthlyTotalHours;
-
+    let valueHour = data["monthly-budget"] / monthlyTotalHours;    
+      
     const profile = await Profile.get()
 
-    Profile.update({
+    await Profile.update({
       ...profile,
       ...req.body,
-      "value-hour": valueHour,
+      ["value-hour"]: valueHour,
     });
 
     return res.redirect("/profile");
