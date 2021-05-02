@@ -1,5 +1,5 @@
 const Database = require('../db/config')
-const { db, connOptions, open } = require("../db/config1")
+const { db, connOptions} = require("../db/config1")
 
 module.exports = {
   async get() {
