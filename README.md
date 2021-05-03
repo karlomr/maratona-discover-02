@@ -22,7 +22,7 @@ I made a change in relation to the database used in the course project, in  <b>B
 </p>
 
 - Hana versão 2.00.045 ;
-- @sap/hana-client (biblioteca NPM)
+- @sap/hana-client (library NPM)
 - In excerpts of the code I leave the addresses where you can consult the connections, as well as explanations of how the drivers for Hana work.
 
 <br>
