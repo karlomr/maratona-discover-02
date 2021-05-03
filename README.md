@@ -24,6 +24,8 @@ I made a change in relation to the database used in the course project, in  <b>B
 - Hana versão 2.00.045 ;
 - @sap/hana-client (library NPM)
 - In excerpts of the code I leave the addresses where you can consult the connections, as well as explanations of how the drivers for Hana work.
+- Axios (for consume API )
+- API Brazilian Central Bank (Exchange USD and EUR)
 
 <br>
 
@@ -39,6 +41,7 @@ I made a change in relation to the database used in the course project, in  <b>B
 - https://help.sap.com/viewer/f1b440ded6144a54ada97ff95dac7adf/2.7/en-US/4fe9978ebac44f35b9369ef5a4a26f4c.html
 - https://developers.sap.com/tutorials/hana-clients-node.html
 - https://www.npmjs.com/package/@sap/hana-client
+- https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/aplicacao#!/recursos
 
 <br><br>
 <p align="center">
