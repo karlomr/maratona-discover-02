@@ -1,3 +1,25 @@
+//const { apiBancoCentral }  = require('../service/apiBancoCentral');
+const axios = require("axios");
+
+const apiBancoCentral = axios.create({
+  baseURL: "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/",
+});
+
+function getExchange(currency, dateStart, dateEnd) {
+  return new Promise((resolve, reject) => {
+    apiBancoCentral
+      .get(
+        `CotacaoMoedaPeriodoFechamento(codigoMoeda=@codigoMoeda,dataInicialCotacao=@dataInicialCotacao,dataFinalCotacao=@dataFinalCotacao)?@codigoMoeda='${currency}'&@dataInicialCotacao='${dateStart}'&@dataFinalCotacao='${dateEnd}'&$top=100&$orderby=dataHoraCotacao%20asc&$format=json&$select=cotacaoCompra`
+      )
+      .then(response => {
+        resolve(response.data.value.map(value=>value.cotacaoCompra));
+      })
+      .catch(err => {
+        reject("ops! ocorreu um erro" + err);
+     });      
+  });
+}
+
 module.exports = {
   //plan consume service with monetary option
   monetary(value, currency = "BRL") {
@@ -8,12 +30,8 @@ module.exports = {
     }).format(value);
   },
 
-  valueCurrency(value) {
-    return {
-      BRL: this.monetary(value), //brl is default
-      USD: this.monetary(value / 5.44,"USD"),
-      EUR: this.monetary(value / 6.54,"EUR"),
-    };
+  async quotationExchange(currency, dateStart, dateEnd) {
+    const exchange = await getExchange(currency, dateStart, dateEnd);
+    return exchange;
   },
-  
 };

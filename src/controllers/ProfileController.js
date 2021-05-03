@@ -1,5 +1,8 @@
+
 const Profile = require("../model/Profile");
+const ProfileUtils = require("../utils/ProfileUtils");
 const NumberUtils = require("../utils/NumberUtils");
+
 
 module.exports = {
   async index(req, res) {
@@ -7,8 +10,9 @@ module.exports = {
     //in features consume api with quotation
     const valueHour = Number(profile["value-hour"]);
 
-    const valueCurrency = NumberUtils.valueCurrency(valueHour);
+    const valueCurrency = await ProfileUtils.valueCurrency(valueHour);
 
+ 
     return res.render("profile", {
       profile,
       valueHour : valueHour,
