@@ -1,4 +1,4 @@
-import { db, connOptions } from "../db/config1.js";
+import { db, connOptions } from '../db/config1.js';
 
 function getData() {
   return new Promise((resolve, reject) => {
