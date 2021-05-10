@@ -37,6 +37,7 @@ const JobControler =  {
 
     const budget = NumberUtils.monetary(job.budget);
 
+
     return res.render("job-edit", { job, budget: budget });
   },
 

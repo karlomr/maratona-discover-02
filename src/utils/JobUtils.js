@@ -21,7 +21,7 @@ const JobUtils =  {
   },
   
   calculateBudget(job, valueHour) {
-    valueHour * job["total-hours"];
+    return valueHour * job["total-hours"];
   }
 }
 
