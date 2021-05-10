@@ -26,6 +26,7 @@ I made a change in relation to the database used in the course project, in  <b>B
 - In excerpts of the code I leave the addresses where you can consult the connections, as well as explanations of how the drivers for Hana work.
 - Axios
 - API Brazilian Central Bank (Exchange USD and EUR)
+- Changed the use of require by import in every project to analyze the consequences in the Project. Corrections were necessary as some bugs were resolved by adding resolutions posted by the community. 
 
 <br>
 
@@ -42,6 +43,7 @@ I made a change in relation to the database used in the course project, in  <b>B
 - https://developers.sap.com/tutorials/hana-clients-node.html
 - https://www.npmjs.com/package/@sap/hana-client
 - https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/aplicacao#!/recursos
+- 
 
 <br><br>
 <p align="center">
