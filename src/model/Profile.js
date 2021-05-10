@@ -1,4 +1,4 @@
-const { db, connOptions } = require("../db/config1");
+import { db, connOptions } from "../db/config1.js";
 
 function getData() {
   return new Promise((resolve, reject) => {
@@ -31,7 +31,7 @@ function getData() {
 }
 
 function updateData(newData) {
-  return new Promise((resolve,reject) => {
+  return new Promise((resolve, reject) => {
     db.connect(connOptions, function (err) {
       if (err) reject(err);
 
@@ -45,8 +45,8 @@ function updateData(newData) {
        ,"vacation_per_year" = ${newData["vacation-per-year"]}
        ,"value_hour" = ${newData["value-hour"]}
        FROM "ROCKETSEAT"."PROFILE"`,
-        function (err,result) {          
-          if (err) reject(err);;
+        function (err, result) {
+          if (err) reject(err);
           resolve(result);
           db.disconnect();
         }
@@ -55,12 +55,10 @@ function updateData(newData) {
   });
 }
 
-
-
-module.exports = {
+const Profile = {
   async get() {
     const data = await getData();
-
+  
     return {
       name: data.name,
       avatar: data.avatar,
@@ -71,8 +69,12 @@ module.exports = {
       ["value-hour"]: data.value_hour,
     };
   },
-
+  
   async update(newData) {
-    const update =  await updateData(newData);
-  },
-};
+    const update = await updateData(newData);
+  }  
+}
+
+export default Profile;
+
+

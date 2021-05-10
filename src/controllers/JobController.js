@@ -1,11 +1,11 @@
-const Job = require("../model/Job");
-const JobUtils = require("../utils/JobUtils");
-const Profile = require("../model/Profile");
-const NumberUtils = require("../utils/NumberUtils");
+import Job from "../model/Job.js";
+import JobUtils from "../utils/JobUtils.js";
+import Profile from "../model/Profile.js";
+import NumberUtils from "../utils/NumberUtils.js";
 
-module.exports = {
-  create(req, res) {
-    return res.render("job")
+const JobControler =  {
+   async create(req, res) {
+    return res.render("job");
   },
 
   async save(req, res) {
@@ -16,7 +16,7 @@ module.exports = {
       created_at: Date.now(),
     });
 
-    return res.redirect("/")
+    return res.redirect("/");
   },
 
   //how will it be seen in browser
@@ -33,9 +33,9 @@ module.exports = {
 
     const profile = await Profile.get();
 
-    job.budget =JobUtils.calculateBudget(job, profile["value-hour"]);
+    job.budget = JobUtils.calculateBudget(job, profile["value-hour"]);
 
-    const budget =  NumberUtils.monetary(job.budget)
+    const budget = NumberUtils.monetary(job.budget);
 
     return res.render("job-edit", { job, budget: budget });
   },
@@ -48,7 +48,7 @@ module.exports = {
       name: req.body.name,
       "total-hours": req.body["total-hours"],
       "daily-hours": req.body["daily-hours"],
-    }
+    };
 
     await Job.update(updatedJob, jobId);
 
@@ -63,3 +63,5 @@ module.exports = {
     return res.redirect("/");
   },
 };
+
+export default JobControler;

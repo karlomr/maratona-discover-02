@@ -1,5 +1,5 @@
 "use strict"
-const { db, connOptions } = require("./config1")
+import { db, connOptions } from './config1';
 
 const initDb =  {
   init() {
