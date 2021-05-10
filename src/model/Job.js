@@ -1,13 +1,106 @@
-import { openDb }  from "../db/config.js";
-//import { db, connOptions } from "../db/config1.js";
+import  { openDb }   from "../db/config.js";
+import { db, connOptions } from "../db/config1.js";
+
+
+function getData() {
+  return new Promise((resolve, reject) => {
+    //https://developers.sap.com/tutorials/hana-clients-node.html
+    //https://www.npmjs.com/package/@sap/hana-client
+    db.connect(connOptions, function (err) {
+      if (err) reject(err);
+
+      const statement = db.prepare(`SELECT * FROM "ROCKETSEAT"."JOBS"`);
+
+      statement.execQuery(function (err, rs) {
+        if (err) reject(err);
+
+        const rows = [];
+
+        while (rs.next()) {
+          rows.push(rs.getValues());
+        }
+
+        db.disconnect(function (err) {
+          if (err) {
+            reject(err);
+          }
+        });
+        statement.drop();
+        resolve(rows);
+      });
+    });
+  });
+} 
+
+function updateData(updatedJob, jobId) {
+  return new Promise((resolve, reject) => {
+    db.connect(connOptions, function (err) {
+      if (err) reject(err);
+
+      db.exec(
+        `UPDATE "ROCKETSEAT"."JOBS" SET
+         "name" = '${updatedJob.name}'
+        ,"daily_hours" = ${updatedJob["daily-hours"]}
+        ,"total_hours" = ${updatedJob["total-hours"]}
+       FROM "ROCKETSEAT"."JOBS"
+       WHERE "id"= ${jobId}`,
+        function (err, result) {
+          if (err) reject(err);
+          resolve(result);
+          db.disconnect();
+        }
+      );
+    });
+  });
+}
+
+function deleteData(jobId) {
+  return new Promise((resolve, reject) => {
+    db.connect(connOptions, function (err) {
+      if (err) reject(err);
+
+      db.exec(
+        `DELETE FROM "ROCKETSEAT"."JOBS"
+         WHERE "id"= ${jobId}`,
+        function (err, result) {
+          if (err) reject(err);
+          resolve(result);
+          db.disconnect();
+        }
+      );
+    });
+  });
+}
+
+function createData(newJob) {
+  return new Promise((resolve, reject) => {
+    db.connect(connOptions, function (err) {
+      if (err) reject(err);
+
+      db.exec(
+        `INSERT INTO "ROCKETSEAT"."JOBS"(
+          "name",
+          "daily_hours",
+          "total_hours"    
+        ) VALUES (
+          '${newJob.name}'
+          ,${newJob["daily-hours"]}
+          ,${newJob["total-hours"]})`,
+        function (err, result) {
+          if (err) reject(err);
+          resolve(result);
+          db.disconnect();
+        }
+      );
+    });
+  });
+}
+
 
 const Job = {
+
   async get() {
-    const db = await openDb();
-
-    const jobs = await db.all(`SELECT * FROM jobs`);
-
-    await db.close();
+    const jobs = await getData();
 
     return jobs.map((job) => ({
       id: job.id,
@@ -18,44 +111,19 @@ const Job = {
     }));
   },
 
-  async update(updatedJob, jobId) {
-    const db = await openDb();
 
-    db.run(
-      `UPDATE jobs SET
-           name = "${updatedJob.name}"
-          ,daily_hours = ${updatedJob[daily - hours]}
-          ,total_hours = ${updatedJob[total - hours]}
-          ,created_at = ${updatedJob.created_at}
-         WHERE id = ${jobId}`
-    );
+  async update(updatedJob, jobId) {
+    const updated = await updateData(updatedJob, jobId);
   },
 
-  async delete(id) {
-    const db = await openDb();
+  async delete(jobId) {
+    const updated = await deleteData(jobId);
 
-    db.run(`DELETE FROM jobs WHERE id = ${id}`);
-
-    await db.close();
   },
 
   async create(newJob) {
-    const db = await openDb();
-    await db.run(
-      `INSERT INTO jobs (
-              name
-            , daily_hours
-            , total_hours
-            , created_at
-          ) VALUES (
-          "${newJob.name}"
-          ,${newJob["daily-hours"]}
-          ,${newJob["total-hours"]}
-          ,${newJob.created_at}
-        )`
-    );
-
-    await db.close();
+    const created = await createData(newJob);
   },
+
 };
 export default Job;

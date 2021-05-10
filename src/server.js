@@ -8,6 +8,8 @@ import { routes } from './routes.js';
 import path  from "path";
 
 // __dirname is not defined in 
+//fix bug 
+//https://github.com/nodejs/help/issues/2907
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);

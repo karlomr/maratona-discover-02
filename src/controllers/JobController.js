@@ -4,7 +4,7 @@ import Profile from "../model/Profile.js";
 import NumberUtils from "../utils/NumberUtils.js";
 
 const JobControler =  {
-   async create(req, res) {
+  async create(req, res) {
     return res.render("job");
   },
 

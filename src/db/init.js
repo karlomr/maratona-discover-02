@@ -1,5 +1,5 @@
 "use strict"
-import { db, connOptions } from './config1';
+import { db, connOptions } from './config1.js';
 
 const initDb =  {
   init() {
@@ -64,15 +64,15 @@ const initDb =  {
     db.connect(connOptions, function(err) {
       if (err) throw err
     
-      db.exec(profile, function (err, result) {
-        if (err) throw err;
-        console.log("Table PROFILE created!")
-      })
+      // db.exec(profile, function (err, result) {
+      //   if (err) throw err;
+      //   console.log("Table PROFILE created!")
+      // })
 
-      db.exec(jobs, function (err, result) {
-        if (err) throw err;
-        console.log("Table JOBS created!")
-      })
+      // db.exec(jobs, function (err, result) {
+      //   if (err) throw err;
+      //   console.log("Table JOBS created!")
+      // })
 
       db.exec(in_profile, function (err, affectedRows) {
         if (err) throw err;
