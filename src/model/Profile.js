@@ -1,11 +1,12 @@
 import { db, connOptions } from '../db/config1.js';
 
+
 function getData() {
   return new Promise((resolve, reject) => {
     //https://developers.sap.com/tutorials/hana-clients-node.html
     //https://www.npmjs.com/package/@sap/hana-client
-    db.connect(connOptions, function (err) {
-      if (err) reject(err);
+    // db.connect(connOptions, function (err) {
+    //   if (err) reject(err);
 
       const statement = db.prepare(`SELECT * FROM "ROCKETSEAT"."PROFILE"`);
 
@@ -18,24 +19,24 @@ function getData() {
           rows.push(rs.getValues());
         }
 
-        db.disconnect(function (err) {
-          if (err) {
-            reject(err);
-          }
-        });
+        // db.disconnect(function (err) {
+        //   if (err) {
+        //     reject(err);
+        //   }
+        // });
         statement.drop();
         resolve(rows[0]);
       });
     });
-  });
+  // });
 }
 
 function updateData(newData) {
   return new Promise((resolve, reject) => {
-    db.connect(connOptions, function (err) {
-      if (err) reject(err);
+    // conn.connect(connOptions, function (err) {
+    //   if (err) reject(err);
 
-      db.exec(
+    db.exec(
         `UPDATE "ROCKETSEAT"."PROFILE" SET
         "name" = '${newData.name}'
        ,"avatar" = '${newData.avatar}'
@@ -48,11 +49,11 @@ function updateData(newData) {
         function (err, result) {
           if (err) reject(err);
           resolve(result);
-          db.disconnect();
+          // db.disconnect();
         }
       );
     });
-  });
+  // });
 }
 
 const Profile = {

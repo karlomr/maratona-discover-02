@@ -61,8 +61,8 @@ const initDb =  {
 
     //const db = Database.createConnection()
 
-    db.connect(connOptions, function(err) {
-      if (err) throw err
+    // db.connect(connOptions, function(err) {
+    //   if (err) throw err
     
       // db.exec(profile, function (err, result) {
       //   if (err) throw err;
@@ -88,13 +88,13 @@ const initDb =  {
         if (err) throw err;
         console.log(`Rows affected: ${affectedRows}`)
       })
-    })
+    // })
   
-    db.disconnect(function (err) {
-      if (err) {
-        return console.error(err)
-      }
-    })
+    // db.disconnect(function (err) {
+    //   if (err) {
+    //     return console.error(err)
+    //   }
+    // })
   }
 }
 

@@ -1,10 +1,7 @@
 //const { apiBancoCentral }  = require('../service/apiBancoCentral');
-import axios from "axios";
+import apiBancoCentral from "../service/apiBancoCentral.js";
 
-const apiBancoCentral = axios.create({
-  baseURL: "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/",
-});
-
+//consume service from Central Bank of Brazilian
 function getExchange(currency, dateStart, dateEnd) {
   return new Promise((resolve, reject) => {
     apiBancoCentral
@@ -21,7 +18,6 @@ function getExchange(currency, dateStart, dateEnd) {
 }
 
 const NumberUtils = {
-  //plan consume service with monetary option
   monetary(value, currency = "BRL") {
     return Intl.NumberFormat("pt-BR", {
       //https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
